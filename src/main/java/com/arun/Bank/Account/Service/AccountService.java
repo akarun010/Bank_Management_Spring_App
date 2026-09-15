@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -16,8 +17,8 @@ public class AccountService {
         return dao.findAll();
     }
 
-    public Account getAccountById(int id) {
-        return dao.findAll().stream().filter(a -> a.getId() == id).findFirst().orElse(null);
+    public Optional<Account> getAccountById(int id) {
+        return dao.findById(id);
     }
 
     public void createAccount(Account account) {
@@ -29,29 +30,37 @@ public class AccountService {
     }
 
     public void depositMoney(int id, double amount) {
-        Account account = dao.findAll().stream().filter(a -> a.getId() == id).findFirst().orElse(null);
-        if(account != null && amount > 0) {
+        Optional<Account> optionalAccount = dao.findById(id);
+        if(optionalAccount.isPresent() && amount > 0) {
+            Account account = optionalAccount.get();
             account.setBalance(amount + account.getBalance());
             dao.save(account);
         }
     }
 
     public void withdrawMoney(int id, double amount) {
-        Account account = dao.findAll().stream().filter(a -> a.getId() == id).findFirst().orElse(null);
-        if(account != null && account.getBalance() - amount >= 0) {
-            account.setBalance(account.getBalance() - amount);
-            dao.save(account);
+        Optional<Account> optionalAccount = dao.findById(id);
+        if(optionalAccount.isPresent()) {
+            Account account = optionalAccount.get();
+            if(account.getBalance() - amount >= 0 && amount > 0){
+                account.setBalance(account.getBalance() - amount);
+                dao.save(account);
+            }
         }
     }
 
     public void transferMoney(int from, int to, double amount) {
-        Account fromAccount = dao.findAll().stream().filter(a -> a.getId() == from).findFirst().orElse(null);
-        Account toAccount = dao.findAll().stream().filter(a -> a.getId() == to).findFirst().orElse(null);
-        if(fromAccount != null && toAccount != null && fromAccount.getBalance() - amount > 0 && amount > 0) {
-            fromAccount.setBalance(fromAccount.getBalance() - amount);
-            toAccount.setBalance(toAccount.getBalance() + amount);
-            dao.save(toAccount);
-            dao.save(fromAccount);
+        Optional<Account> optionalFromAccount = dao.findById(from);
+        Optional<Account> optionalToAccount = dao.findById(to);
+        if(optionalFromAccount.isPresent() && optionalToAccount.isPresent()) {
+            Account fromAccount = optionalFromAccount.get();
+            Account toAccount = optionalToAccount.get();
+            if(fromAccount.getBalance() - amount >= 0 && amount > 0) {
+                fromAccount.setBalance(fromAccount.getBalance() - amount);
+                toAccount.setBalance(toAccount.getBalance() + amount);
+                dao.save(fromAccount);
+                dao.save(toAccount);
+            }
         }
     }
 }

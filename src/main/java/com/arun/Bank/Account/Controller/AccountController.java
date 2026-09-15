@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class AccountController {
@@ -18,7 +19,7 @@ public class AccountController {
     }
 
     @GetMapping("/accounts/{id}")
-    public Account getAccountById(@PathVariable int id){
+    public Optional<Account> getAccountById(@PathVariable int id){
         return service.getAccountById(id);
     }
 
@@ -28,7 +29,7 @@ public class AccountController {
     }
 
     @DeleteMapping("/accounts/{id}")
-    public void deleteStudentById(@PathVariable int id){
+    public void deleteAccountById(@PathVariable int id){
         service.deleteAccountById(id);
     }
 
