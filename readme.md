@@ -6,7 +6,7 @@ This project focuses on building REST APIs with a layered architecture and imple
 
 ## 🚀 Features
 
-* Create a bank account
+* Create a bank account 
 * View all accounts
 * View account by ID
 * Delete an account
