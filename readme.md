@@ -4,11 +4,11 @@ A RESTful Bank Account Management API built using **Java, Spring Boot, Spring Da
 
 This project focuses on building REST APIs with a layered architecture and implementing real-world banking operations such as **deposit, withdrawal, and money transfer**.
 
-## 🚀 Features
+## 🚀 Features 
  
 * Create a bank account 
 * View all accounts
-* View account by ID
+* View account by ID 
 * Delete an account
 * Deposit money
 * Withdraw money
@@ -19,7 +19,7 @@ This project focuses on building REST APIs with a layered architecture and imple
 * REST API testing with Postman
 
 ## 🛠️ Technologies Used
-
+ 
 * **Java**
 * **Spring Boot**
 * **Spring Web**
