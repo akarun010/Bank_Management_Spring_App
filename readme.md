@@ -8,7 +8,7 @@ This project focuses on building REST APIs with a layered architecture and imple
  
 * Create a bank account 
 * View all accounts
-* View account by ID
+* View account by ID 
 * Delete an account
 * Deposit money
 * Withdraw money
@@ -19,7 +19,7 @@ This project focuses on building REST APIs with a layered architecture and imple
 * REST API testing with Postman
 
 ## 🛠️ Technologies Used
-
+ 
 * **Java**
 * **Spring Boot**
 * **Spring Web**
